@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
 import re
+import tempfile
 from pathlib import Path
 from threading import Lock
 from typing import Any
@@ -19,7 +21,12 @@ from sklearn.pipeline import FeatureUnion, Pipeline
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = ROOT / "data" / "sentiment_es.jsonl"
-MODEL_PATH = ROOT / "models" / "sentiment_model.joblib"
+# Vercel Functions solo permite escritura persistente en /tmp durante la ejecución.
+MODEL_PATH = (
+    Path(tempfile.gettempdir()) / "sentiment_model.joblib"
+    if os.getenv("VERCEL")
+    else ROOT / "models" / "sentiment_model.joblib"
+)
 RANDOM_STATE = 42
 
 POSITIVE_WORDS = {

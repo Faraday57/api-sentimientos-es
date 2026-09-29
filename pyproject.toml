@@ -1,0 +1,8 @@
+[project]
+name = "api-sentimientos-es"
+version = "1.0.0"
+requires-python = ">=3.12,<3.15"
+
+[tool.vercel]
+entrypoint = "app.main:app"
+
