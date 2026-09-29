@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analizador de sentimientos</title>
+  <style>
+    :root { color-scheme: dark; --bg:#07111f; --panel:#111d2e; --ink:#f4f7fb; --muted:#9fb0c6; --accent:#6ee7b7; --line:#28374d; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; font-family:Inter,ui-sans-serif,system-ui,sans-serif; background:radial-gradient(circle at 15% 0,#163258 0,transparent 36%),var(--bg); color:var(--ink); }
+    main { width:min(760px,calc(100% - 32px)); margin:0 auto; padding:64px 0; }
+    .eyebrow { color:var(--accent); font-weight:750; letter-spacing:.13em; text-transform:uppercase; font-size:.75rem; }
+    h1 { margin:.4rem 0 .6rem; font-size:clamp(2rem,7vw,4.25rem); line-height:.98; letter-spacing:-.055em; }
+    .lead { color:var(--muted); font-size:1.05rem; max-width:620px; line-height:1.65; }
+    .card { margin-top:34px; padding:24px; border:1px solid var(--line); border-radius:20px; background:color-mix(in srgb,var(--panel) 92%,transparent); box-shadow:0 28px 80px #0007; }
+    label { display:block; margin-bottom:10px; font-weight:700; }
+    textarea { width:100%; min-height:140px; resize:vertical; padding:16px; color:var(--ink); background:#091422; border:1px solid #34445b; border-radius:12px; font:inherit; line-height:1.5; outline:none; }
+    textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px #6ee7b722; }
+    .actions { display:flex; align-items:center; gap:14px; margin-top:14px; flex-wrap:wrap; }
+    button { border:0; border-radius:10px; padding:12px 20px; font:inherit; font-weight:800; color:#062016; background:var(--accent); cursor:pointer; }
+    button:hover { filter:brightness(1.08); transform:translateY(-1px); }
+    button:disabled { opacity:.55; cursor:wait; }
+    a { color:var(--accent); }
+    #result { display:none; margin-top:20px; padding:18px; border-radius:14px; background:#091422; border:1px solid var(--line); }
+    .result-head { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+    .badge { padding:7px 12px; border-radius:999px; font-weight:850; text-transform:capitalize; }
+    .positivo { color:#071b13; background:#6ee7b7; }
+    .neutral { color:#172033; background:#cbd5e1; }
+    .negativo { color:#2c0a0a; background:#fda4af; }
+    .bar-row { display:grid; grid-template-columns:82px 1fr 54px; gap:10px; align-items:center; margin-top:12px; color:var(--muted); font-size:.9rem; }
+    .track { height:8px; border-radius:9px; background:#253247; overflow:hidden; }
+    .fill { height:100%; border-radius:9px; background:#6ee7b7; transition:width .35s ease; }
+    .error { color:#fda4af; }
+    footer { margin-top:24px; color:var(--muted); font-size:.88rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">IA · Procesamiento de lenguaje natural</div>
+    <h1>¿Qué sentimiento transmite?</h1>
+    <p class="lead">Escribe un comentario en español. El modelo estimará si su tono es positivo, neutral o negativo y mostrará la probabilidad de cada categoría.</p>
+    <section class="card">
+      <form id="form">
+        <label for="text">Comentario</label>
+        <textarea id="text" maxlength="5000" required placeholder="Ej.: Me encantó la atención, todo fue excelente."></textarea>
+        <div class="actions">
+          <button id="submit" type="submit">Analizar sentimiento</button>
+          <span>También disponible como <a href="/docs">API interactiva</a></span>
+        </div>
+      </form>
+      <div id="result" aria-live="polite"></div>
+    </section>
+    <footer>Modelo supervisado: TF‑IDF + regresión logística · Español</footer>
+  </main>
+  <script>
+    const form = document.querySelector('#form');
+    const input = document.querySelector('#text');
+    const button = document.querySelector('#submit');
+    const result = document.querySelector('#result');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      button.disabled = true; button.textContent = 'Analizando…';
+      result.style.display = 'block'; result.innerHTML = 'Procesando comentario…';
+      try {
+        const response = await fetch('/api/v1/predict', {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({text: input.value})
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.detail?.[0]?.msg || data.detail || 'No se pudo analizar.');
+        const rows = ['positivo','neutral','negativo'].map(label => {
+          const value = data.probabilities[label];
+          return `<div class="bar-row"><span>${label}</span><div class="track"><div class="fill" style="width:${value*100}%"></div></div><strong>${(value*100).toFixed(1)}%</strong></div>`;
+        }).join('');
+        result.innerHTML = `<div class="result-head"><strong>Resultado</strong><span class="badge ${data.sentiment}">${data.sentiment}</span></div><p>Confianza: <strong>${(data.confidence*100).toFixed(1)}%</strong></p>${rows}`;
+      } catch (error) {
+        result.innerHTML = `<span class="error">${error.message}</span>`;
+      } finally {
+        button.disabled = false; button.textContent = 'Analizar sentimiento';
+      }
+    });
+  </script>
+</body>
+</html>
+
