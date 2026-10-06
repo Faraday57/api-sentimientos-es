@@ -103,4 +103,78 @@
 {"text":"Quedan dos cupos disponibles","label":"neutral"}
 {"text":"El formulario solicita nombre y correo","label":"neutral"}
 {"text":"La actividad tiene fecha de entrega","label":"neutral"}
-
+{"text":"Al principio dudé del cambio, pero después de usarlo varios días estoy muy satisfecho y ahora lo recomiendo","label":"positivo"}
+{"text":"La entrega tardó un poco, aunque el producto llegó perfecto y la calidad superó mis expectativas","label":"positivo"}
+{"text":"Tuve un inconveniente pequeño con el registro, sin embargo el soporte fue amable, rápido y resolvió todo","label":"positivo"}
+{"text":"No esperaba demasiado de esta actualización, pero funciona de maravilla y la interfaz quedó mucho mejor","label":"positivo"}
+{"text":"Aunque todavía faltan algunos detalles, el proyecto es útil, interesante y demuestra un excelente trabajo","label":"positivo"}
+{"text":"La explicación fue larga, pero terminó siendo muy clara y ahora entiendo perfectamente el tema","label":"positivo"}
+{"text":"El precio no es el más bajo, aun así la calidad es fantástica y estoy contento con la compra","label":"positivo"}
+{"text":"Ayer la aplicación estaba lenta; hoy funciona muy bien y me alegra que hayan solucionado el problema","label":"positivo"}
+{"text":"Pensé que sería complicado, pero el proceso resultó fácil, agradable y mucho más rápido de lo esperado","label":"positivo"}
+{"text":"La primera versión tenía errores, aunque esta nueva entrega es estable, bonita y realmente recomendable","label":"positivo"}
+{"text":"Compré el servicio con cierta desconfianza. Después de una semana puedo decir que fue una excelente decisión y estoy feliz con los resultados","label":"positivo"}
+{"text":"El evento comenzó tarde, pero las presentaciones fueron brillantes, aprendí bastante y salí muy motivado","label":"positivo"}
+{"text":"No todo fue perfecto, sin embargo la atención fue tan amable y la solución tan efectiva que quedé satisfecho","label":"positivo"}
+{"text":"La documentación podría ser más corta, pero contiene información muy útil y ejemplos que funcionan a la primera","label":"positivo"}
+{"text":"Había leído opiniones negativas, aunque mi experiencia fue excelente: llegó a tiempo, bien protegido y funciona perfecto","label":"positivo"}
+{"text":"El curso exige bastante esfuerzo, pero cada clase es interesante y siento que estoy aprendiendo muchísimo","label":"positivo"}
+{"text":"Me preocupaba perder mis datos durante la migración; por suerte todo salió bien y el equipo brindó un gran apoyo","label":"positivo"}
+{"text":"Tardaron en responder mi mensaje inicial, pero luego fueron atentos, resolvieron cada duda y me dejaron muy tranquilo","label":"positivo"}
+{"text":"La aplicación tiene una curva de aprendizaje pequeña. Una vez entendida, es rápida, útil y muy agradable de usar","label":"positivo"}
+{"text":"Después de comparar varias opciones elegí esta y no me arrepiento: ofrece buena calidad, funciones útiles y soporte excelente","label":"positivo"}
+{"text":"El diseño se ve bonito, pero la aplicación falla constantemente, perdí información y el soporte nunca respondió","label":"negativo"}
+{"text":"La atención comenzó de forma amable, aunque terminaron ignorando mi reclamo y sigo sin una solución","label":"negativo"}
+{"text":"El paquete llegó a tiempo y bien presentado, pero el producto estaba roto y no funciona","label":"negativo"}
+{"text":"La idea parecía interesante; después de probarla descubrí errores graves, lentitud y una experiencia frustrante","label":"negativo"}
+{"text":"Me gustó la publicidad, sin embargo el servicio real fue pésimo y no cumplió ninguna de sus promesas","label":"negativo"}
+{"text":"La primera semana funcionó bien, pero desde la actualización se cierra, borra cambios y me hace perder tiempo","label":"negativo"}
+{"text":"El lugar es bonito y está bien ubicado, aunque la atención fue grosera, lenta y demasiado cara","label":"negativo"}
+{"text":"Agradezco que respondieran, pero la respuesta no resolvió nada y ahora estoy todavía más molesto","label":"negativo"}
+{"text":"El curso tiene algunos contenidos útiles, sin embargo está desorganizado, confuso y lleno de explicaciones equivocadas","label":"negativo"}
+{"text":"Esperé varios días con paciencia. Finalmente llegó un artículo diferente, usado y en malas condiciones","label":"negativo"}
+{"text":"Quería apoyar el proyecto porque la propuesta era buena, pero la ejecución fue un desastre y el resultado es inútil","label":"negativo"}
+{"text":"La nueva pantalla es atractiva; aun así el sistema se volvió lento, inestable y mucho más difícil de utilizar","label":"negativo"}
+{"text":"Al principio estaba satisfecho. Luego aparecieron cobros inesperados, errores repetidos y nadie quiso ayudarme","label":"negativo"}
+{"text":"El vendedor fue amable antes de la compra, pero después ignoró todos mis mensajes y no entregó lo prometido","label":"negativo"}
+{"text":"Reconozco el esfuerzo del equipo, aunque esta versión está incompleta, falla demasiado y no debería haberse publicado","label":"negativo"}
+{"text":"La reunión empezó bien, pero terminó en confusión porque faltaba información y la organización fue terrible","label":"negativo"}
+{"text":"El producto incluye muchas funciones, sin embargo casi ninguna funciona correctamente y la experiencia es decepcionante","label":"negativo"}
+{"text":"Me alegró recibir una respuesta rápida, pero fue automática, no atendió mi problema y sigo frustrado","label":"negativo"}
+{"text":"La interfaz anterior no era perfecta, aunque esta actualización es peor: tarda más, confunde y pierde datos","label":"negativo"}
+{"text":"Intenté darle otra oportunidad después del primer error, pero volvió a fallar y ya no lo recomiendo","label":"negativo"}
+{"text":"Estoy feliz y enojado al mismo tiempo","label":"neutral"}
+{"text":"Me gusta el diseño, pero me molesta que la aplicación sea lenta","label":"neutral"}
+{"text":"La actualización tiene cosas buenas y malas; algunas funciones mejoraron y otras dejaron de funcionar","label":"neutral"}
+{"text":"La atención fue amable, aunque el tiempo de espera fue frustrante","label":"neutral"}
+{"text":"Estoy contento con el resultado, pero triste por todo el tiempo que tomó conseguirlo","label":"neutral"}
+{"text":"El producto funciona bien, sin embargo llegó tarde y con el empaque dañado","label":"neutral"}
+{"text":"Una parte de la explicación fue excelente y otra parte resultó confusa","label":"neutral"}
+{"text":"El evento tuvo presentaciones interesantes, pero también momentos aburridos y desorganizados","label":"neutral"}
+{"text":"Aprecio que hayan respondido; al mismo tiempo me enoja que todavía no exista una solución","label":"neutral"}
+{"text":"La aplicación es útil para algunas tareas, aunque falla cuando intento usar las funciones avanzadas","label":"neutral"}
+{"text":"No estoy satisfecho ni decepcionado; el servicio cumplió exactamente con lo anunciado","label":"neutral"}
+{"text":"El pedido llegó esta mañana. La caja tiene una marca pequeña y el contenido parece estar completo","label":"neutral"}
+{"text":"Probé la nueva versión durante dos días. Algunas pantallas cargan más rápido y otras mantienen el mismo rendimiento","label":"neutral"}
+{"text":"La reunión comenzó a las nueve, se revisaron tres propuestas y la decisión quedó pendiente para el viernes","label":"neutral"}
+{"text":"Leí comentarios muy positivos y otros muy negativos, así que todavía no tengo una opinión definitiva","label":"neutral"}
+{"text":"Por momentos me entusiasma la propuesta y por momentos me preocupa su costo; necesito más información antes de decidir","label":"neutral"}
+{"text":"La película tiene escenas hermosas y escenas terribles, por eso mi impresión general es intermedia","label":"neutral"}
+{"text":"El curso explica bien los conceptos básicos, mientras que los temas avanzados se presentan de forma confusa","label":"neutral"}
+{"text":"Recibí el producto, revisé el manual y realicé la configuración. Todavía no puedo decir si es bueno o malo","label":"neutral"}
+{"text":"La experiencia tuvo momentos agradables y momentos frustrantes en proporciones similares","label":"neutral"}
+{"text":"Qué maravilla, otra vez se borraron todos mis archivos y ahora debo comenzar desde cero","label":"negativo"}
+{"text":"Genial, justo lo que faltaba: la aplicación se cerró antes de guardar el trabajo","label":"negativo"}
+{"text":"Excelente servicio, llevo una semana esperando y todavía nadie responde","label":"negativo"}
+{"text":"Fantástico, cobraron dos veces y ahora dicen que no pueden devolverme el dinero","label":"negativo"}
+{"text":"Gracias por nada, seguí todas las instrucciones y el problema quedó peor que antes","label":"negativo"}
+{"text":"Al fin corrigieron el error que me preocupaba; ahora todo funciona y puedo trabajar tranquilo","label":"positivo"}
+{"text":"La mejora no parece enorme a primera vista, pero ahorra tiempo y hace el proceso mucho más agradable","label":"positivo"}
+{"text":"Después de varias pruebas difíciles obtuvimos un resultado estable, útil y mejor de lo esperado","label":"positivo"}
+{"text":"No tenía muchas expectativas y terminé gratamente sorprendido por la calidad y la atención","label":"positivo"}
+{"text":"El cambio es pequeño, aunque resolvió exactamente el problema y estoy muy contento","label":"positivo"}
+{"text":"Funciona, pero no hay nada especial que destacar","label":"neutral"}
+{"text":"Parece interesante; necesito probarlo durante más tiempo antes de formar una opinión","label":"neutral"}
+{"text":"La propuesta puede ser útil o problemática dependiendo de cómo se implemente","label":"neutral"}
+{"text":"Me encantó una parte y odié la otra; tengo sentimientos encontrados","label":"neutral"}
+{"text":"El resultado no fue bueno ni malo, simplemente diferente de lo que esperaba","label":"neutral"}

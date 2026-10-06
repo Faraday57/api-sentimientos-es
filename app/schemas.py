@@ -34,6 +34,9 @@ class PredictionResponse(BaseModel):
     text: str
     sentiment: SentimentLabel
     confidence: float
+    mixed_emotions: bool
+    sarcasm_detected: bool
+    segments_analyzed: int
     probabilities: ProbabilityScores
 
 
@@ -54,4 +57,3 @@ class BatchPredictionRequest(BaseModel):
 class BatchPredictionResponse(BaseModel):
     predictions: list[PredictionResponse]
     count: int
-

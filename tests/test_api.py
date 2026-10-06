@@ -44,3 +44,71 @@ def test_batch_and_validation() -> None:
         assert response.json()["count"] == 3
         assert client.post("/api/v1/predict", json={"text": "   "}).status_code == 422
 
+
+def test_balanced_opposite_emotions_are_neutral() -> None:
+    with TestClient(app) as client:
+        response = client.post(
+            "/api/v1/predict", json={"text": "Estoy feliz y enojado"}
+        )
+        assert response.status_code == 200
+        body = response.json()
+        assert body["sentiment"] == "neutral"
+        assert body["mixed_emotions"] is True
+        assert body["probabilities"]["neutral"] > body["probabilities"]["positivo"]
+        assert body["probabilities"]["neutral"] > body["probabilities"]["negativo"]
+
+
+def test_complex_balanced_paragraph_is_neutral() -> None:
+    text = (
+        "Me gusta el nuevo diseño y algunas funciones son excelentes. "
+        "Sin embargo, la aplicación ahora falla, tarda demasiado y eso me enoja. "
+        "En general encuentro aspectos buenos y malos en proporciones similares."
+    )
+    with TestClient(app) as client:
+        body = client.post("/api/v1/predict", json={"text": text}).json()
+        assert body["sentiment"] == "neutral"
+        assert body["mixed_emotions"] is True
+        assert body["segments_analyzed"] >= 3
+
+
+def test_long_paragraph_keeps_dominant_sentiment() -> None:
+    positive_text = (
+        "La entrega tardó un poco, pero el producto llegó en perfecto estado. "
+        "La calidad es excelente, funciona muy bien y el soporte fue amable. "
+        "Después de varios días de uso estoy feliz y lo recomiendo totalmente."
+    )
+    negative_text = (
+        "El diseño parece bonito, pero el sistema falla constantemente. "
+        "Perdí información importante, la atención fue grosera y nadie solucionó nada. "
+        "La experiencia terminó siendo horrible y no lo recomiendo."
+    )
+    with TestClient(app) as client:
+        positive = client.post("/api/v1/predict", json={"text": positive_text}).json()
+        negative = client.post("/api/v1/predict", json={"text": negative_text}).json()
+        assert positive["sentiment"] == "positivo"
+        assert negative["sentiment"] == "negativo"
+        assert positive["segments_analyzed"] >= 3
+        assert negative["segments_analyzed"] >= 3
+
+
+def test_sarcastic_negative_context() -> None:
+    with TestClient(app) as client:
+        body = client.post(
+            "/api/v1/predict",
+            json={"text": "Qué maravilla, otra vez se borraron todos mis archivos"},
+        ).json()
+        assert body["sentiment"] == "negativo"
+        assert body["sarcasm_detected"] is True
+
+
+def test_explicitly_undecided_comment_is_neutral() -> None:
+    with TestClient(app) as client:
+        body = client.post(
+            "/api/v1/predict",
+            json={
+                "text": "Me encantó una parte y odié la otra; tengo sentimientos encontrados"
+            },
+        ).json()
+        assert body["sentiment"] == "neutral"
+        assert body["mixed_emotions"] is True
+        assert abs(sum(body["probabilities"].values()) - 1) < 0.01
