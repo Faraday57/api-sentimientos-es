@@ -10,7 +10,10 @@ def test_health_and_model_info() -> None:
         assert health.json() == {"status": "ok", "model_loaded": True}
         info = client.get("/api/v1/model/info")
         assert info.status_code == 200
-        assert info.json()["dataset_size"] >= 30
+        metadata = info.json()
+        assert metadata["model_version"] == 5
+        assert metadata["dataset_size"] == 1500
+        assert metadata["test_size"] == 45
 
 
 def test_predict_positive_comment() -> None:
@@ -56,6 +59,36 @@ def test_balanced_opposite_emotions_are_neutral() -> None:
         assert body["mixed_emotions"] is True
         assert body["probabilities"]["neutral"] > body["probabilities"]["positivo"]
         assert body["probabilities"]["neutral"] > body["probabilities"]["negativo"]
+
+
+def test_happy_and_anxious_are_balanced_as_neutral() -> None:
+    with TestClient(app) as client:
+        body = client.post(
+            "/api/v1/predict", json={"text": "Me siento feliz y ansioso"}
+        ).json()
+        assert body["sentiment"] == "neutral"
+        assert body["mixed_emotions"] is True
+        assert body["probabilities"]["neutral"] >= 0.80
+        assert set(body["emotions_detected"]) == {"alegría", "ansiedad"}
+
+
+def test_intensity_breaks_a_mixed_emotion_tie() -> None:
+    with TestClient(app) as client:
+        body = client.post(
+            "/api/v1/predict",
+            json={"text": "Me siento muy feliz y un poco ansioso"},
+        ).json()
+        assert body["sentiment"] == "positivo"
+        assert body["mixed_emotions"] is True
+
+
+def test_anxiety_without_positive_counterweight_is_negative() -> None:
+    with TestClient(app) as client:
+        body = client.post(
+            "/api/v1/predict", json={"text": "Me siento ansioso y preocupado"}
+        ).json()
+        assert body["sentiment"] == "negativo"
+        assert body["probabilities"]["negativo"] > 0.75
 
 
 def test_complex_balanced_paragraph_is_neutral() -> None:

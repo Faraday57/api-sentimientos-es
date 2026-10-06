@@ -4,9 +4,11 @@ Proyecto académico de Inteligencia Artificial y Machine Learning. Entrena un mo
 
 ## ¿Cómo funciona?
 
-El entrenamiento transforma el texto con dos representaciones TF-IDF: n-gramas de palabras (capturan expresiones) y n-gramas de caracteres (toleran variantes, errores y palabras desconocidas). Estas representaciones se combinan con señales lingüísticas de polaridad, negación, intensidad y contraste. Una regresión logística multiclase produce la etiqueta y las probabilidades.
+El entrenamiento transforma el texto con dos representaciones TF-IDF: n-gramas de palabras (capturan expresiones) y n-gramas de caracteres (toleran variantes, errores y palabras desconocidas). Estas representaciones se combinan con señales lingüísticas de polaridad, negación, intensidad y contraste. Una regresión logística multiclase produce la primera estimación.
 
-La versión actual contiene **180 ejemplos balanceados** en español, incluyendo comentarios largos, emociones contradictorias, opiniones con ventajas y desventajas, negaciones, expresiones neutrales y algunos patrones frecuentes de sarcasmo. Para analizar párrafos, el servicio separa oraciones y cláusulas introducidas por conectores como `pero`, `aunque` y `sin embargo`; después combina el resultado global con los resultados de cada segmento. Si la evidencia positiva y negativa tiene intensidad semejante, el tono global se interpreta como mixto o neutral.
+Encima de esa estimación se ejecuta una capa de **inferencia difusa contextual**. Cada emoción aporta evidencia gradual positiva o negativa; `muy` aumenta su peso, `poco` lo reduce y una negación invierte su valencia. Las familias morfológicas permiten reconocer variantes como `ansioso`, `ansiosa` y `ansiedad`. Si ambos polos tienen intensidad semejante, aumenta la pertenencia neutral; si uno domina por cantidad o intensidad, conserva su polaridad. Por ejemplo, `feliz y ansioso` es neutral, mientras que `muy feliz y un poco ansioso` es positivo.
+
+La versión 5 se entrena con **1.500 ejemplos balanceados** (500 por clase): 180 comentarios curados y 1.320 variaciones sintéticas reproducibles. Incluye comentarios largos, emociones contradictorias, ansiedad, opiniones con ventajas y desventajas, negaciones, intensidad, expresiones neutrales y patrones frecuentes de sarcasmo. Para analizar párrafos, el servicio separa oraciones y cláusulas introducidas por conectores como `pero`, `aunque` y `sin embargo`; la conclusión posterior a un contraste recibe algo más de peso.
 
 > Este es un modelo académico entrenado con un conjunto pequeño. No debe emplearse para tomar decisiones sobre personas ni como única fuente para moderación real.
 
@@ -44,6 +46,7 @@ Respuesta:
   "mixed_emotions": false,
   "sarcasm_detected": false,
   "segments_analyzed": 1,
+  "emotions_detected": ["satisfacción"],
   "probabilities": {"positivo": 0.7812, "neutral": 0.128, "negativo": 0.0908}
 }
 ```
@@ -82,4 +85,10 @@ Agregar ejemplos a `data/sentiment_es.jsonl` respetando el formato JSON Lines y 
 python train_model.py
 ```
 
-El script divide los datos de manera estratificada, calcula exactitud y F1 macro en el conjunto de prueba, y después entrena el artefacto final con todos los ejemplos. La evaluación actual utiliza 144 ejemplos para entrenamiento y 36 para prueba; obtuvo aproximadamente **86.1 % de exactitud** y **86.5 % de F1 macro**. Son métricas académicas sobre un conjunto pequeño y no garantizan el mismo rendimiento en todos los comentarios reales.
+El script amplía el corpus de forma determinista hasta 500 ejemplos por clase, entrena el artefacto y evalúa el sistema híbrido con `data/challenge_es.jsonl`. Ese conjunto contiene 45 frases y párrafos complejos escritos por separado y nunca se usa para entrenar. La evaluación actual obtuvo aproximadamente **100 % de exactitud y F1 macro** en ese reto local. Es una prueba académica pequeña y dirigida; no demuestra rendimiento perfecto en comentarios reales ni sustituye una evaluación humana amplia.
+
+## Referencias técnicas
+
+- L. A. Zadeh, [Fuzzy Sets](https://doi.org/10.1016/S0019-9958(65)90241-X): pertenencia gradual entre 0 y 1.
+- Hutto y Gilbert, [VADER](https://doi.org/10.1609/icwsm.v8i1.14550): combinación de léxico con reglas contextuales para texto de redes sociales.
+- Documentación oficial de [TF-IDF](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html) y [regresión logística](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html) de scikit-learn.

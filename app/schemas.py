@@ -37,6 +37,7 @@ class PredictionResponse(BaseModel):
     mixed_emotions: bool
     sarcasm_detected: bool
     segments_analyzed: int
+    emotions_detected: list[str]
     probabilities: ProbabilityScores
 
 
